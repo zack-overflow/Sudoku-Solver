@@ -13,10 +13,6 @@
     ├── FILE J
     └── FILE K
 ├── solver
-    ├── FILE X
-    ├── FILE Y
-    └── FILE Z
-└── documentation
     ├── DESIGN.md
     ├── IMPLEMENTATION.md
     └── TESTING.md
