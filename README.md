@@ -3,6 +3,7 @@
 ## Project Structure
 ```
 .
+├── README.md
 ├── common
     ├── FILE A
     ├── FILE B
@@ -16,7 +17,6 @@
     ├── FILE Y
     └── FILE Z
 └── documentation
-    ├── README.md
     ├── DESIGN.md
     ├── IMPLEMENTATION.md
     └── TESTING.md
