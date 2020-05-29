@@ -10,6 +10,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h> 
+#include <unistd.h> 
 
 #define ROW 9
 #define COL 9
@@ -19,6 +20,7 @@ int findMove(int board[ROW][COL], int *row, int *col);
 void checkMove(int board[ROW][COL], int row, int col, int *listofnums);
 int boardFill(int board[ROW][COL]);
 int checkBoard(int board[ROW][COL], int row, int col, int value);
+int isSafe(int board[ROW][COL], int row, int col, int value);
 void printBoard(int board[ROW][COL]);
 
 /* **************************************** */
@@ -139,12 +141,49 @@ void checkMove(int board[ROW][COL], int row, int col, int *listofnums){
     // fprintf(stdout, "\n");
 }
 
+int isSafe(int board[ROW][COL], int row, int col, int value){
+    int i, j;
+    int rowmod;
+    int rowstart;
+    int colmod;
+    int colstart;
+
+    //check column
+    for(i = 0; i < 9; i++){
+        if(board[i][col] == value){
+            return 0;
+        }
+    }
+
+    //check row
+    for(i = 0; i < 9; i++){
+        if(board[row][i] == value){
+            return 0;
+        }
+    }
+
+    //check box
+    rowmod = row % 3;
+    colmod = col % 3;
+    rowstart = row - rowmod;
+    colstart = col - colmod;
+    for(i = 0; i < 3; i++){
+        for(j = 0; j < 3; j++){
+            if(board[rowstart + i][colstart + j] == value){
+                return 0;
+            }
+        }
+    }
+
+    return 1;
+}
+
 
 int boardFill(int board[ROW][COL]){
     int i;
     int k;
+    int multiplier;
     int count = 0;
-    srand(time(NULL));   // Initialization, should only be called once.
     int randomnum;
     int listofnums[N+1] = {0};
     int listofoptions[N+1] = {0};
@@ -175,11 +214,14 @@ int boardFill(int board[ROW][COL]){
     fprintf(stdout, "\n");
     fprintf(stdout, "randomized list: ");
     for(i = 0; i < count; i++){
-        randomnum = rand() % count;
+        srand(time(NULL));   // Initialization, should only be called once.
+        multiplier = (row*9) + col;
+        randomnum = (rand()+multiplier) % count;
         while(randomizedindexes[randomnum] != 0){
             randomnum = rand() % count;
         }
         randomizedindexes[randomnum] = 1;
+        fprintf(stdout, "random number: %d\n", randomnum);
         randomizedlist[i] = listofoptions[randomnum];
         fprintf(stdout, "%d ", randomizedlist[i]);
     }
@@ -187,10 +229,12 @@ int boardFill(int board[ROW][COL]){
 
     for(i = 0; i < count; i++){
         fprintf(stdout, "position: %d %d\n", row, col);
-        board[row][col] = randomizedlist[i];
-        fprintf(stdout, "number chosen: %d\n", randomizedlist[i]);
-        if(boardFill(board) == 1){
-            return 1;
+        if(isSafe(board, row, col, randomizedlist[i])){
+            board[row][col] = randomizedlist[i];
+            fprintf(stdout, "number chosen: %d\n", randomizedlist[i]);
+            if(boardFill(board) == 1){
+                return 1;
+            }
         }
     }
     return 0;
