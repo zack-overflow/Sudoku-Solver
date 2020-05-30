@@ -22,6 +22,7 @@ int boardFill(int board[ROW][COL]);
 int checkBoard(int board[ROW][COL], int row, int col, int value);
 int isSafe(int board[ROW][COL], int row, int col, int value);
 void printBoard(int board[ROW][COL]);
+int generateMissing(int board[ROW][COL], int finalboard[ROW][COL]);
 
 /* **************************************** */
 
@@ -182,9 +183,9 @@ int isSafe(int board[ROW][COL], int row, int col, int value){
 int boardFill(int board[ROW][COL]){
     int i;
     int k;
-    int multiplier;
     int count = 0;
     int randomnum;
+    int multiplier;
     int listofnums[N+1] = {0};
     int listofoptions[N+1] = {0};
     int randomizedlist[N+1] = {0};
@@ -207,12 +208,12 @@ int boardFill(int board[ROW][COL]){
             count++;
         }
     }
-    fprintf(stdout, "final options: ");
-    for(k = 0; k < count; k++){
-        fprintf(stdout, "%d ", listofoptions[k]);
-    }
-    fprintf(stdout, "\n");
-    fprintf(stdout, "randomized list: ");
+    // fprintf(stdout, "final options: ");    
+    // for(k = 0; k < count; k++){
+    //     fprintf(stdout, "%d ", listofoptions[k]);
+    // }
+    // fprintf(stdout, "\n");
+    // fprintf(stdout, "randomized list: ");
     for(i = 0; i < count; i++){
         srand(time(NULL));   // Initialization, should only be called once.
         multiplier = (row*9) + col;
@@ -221,17 +222,17 @@ int boardFill(int board[ROW][COL]){
             randomnum = rand() % count;
         }
         randomizedindexes[randomnum] = 1;
-        fprintf(stdout, "random number: %d\n", randomnum);
+        //fprintf(stdout, "random number: %d\n", randomnum);
         randomizedlist[i] = listofoptions[randomnum];
-        fprintf(stdout, "%d ", randomizedlist[i]);
+        //fprintf(stdout, "%d ", randomizedlist[i]);
     }
-    fprintf(stdout, "\n");
+    //fprintf(stdout, "\n");
 
     for(i = 0; i < count; i++){
-        fprintf(stdout, "position: %d %d\n", row, col);
+        //fprintf(stdout, "position: %d %d\n", row, col);
         if(isSafe(board, row, col, randomizedlist[i])){
             board[row][col] = randomizedlist[i];
-            fprintf(stdout, "number chosen: %d\n", randomizedlist[i]);
+            //fprintf(stdout, "number chosen: %d\n", randomizedlist[i]);
             if(boardFill(board) == 1){
                 return 1;
             }
@@ -239,62 +240,35 @@ int boardFill(int board[ROW][COL]){
     }
     return 0;
 }
-    // for (i = 0; i < 9; i++){
-    //     for(j = 0; j < 9; j++){
-    //         fprintf(stdout, "position: %d %d\n", i, j);
 
 
-            // checkMove(board, i, j, listofnums);
-            // fprintf(stdout, "list of options: ");
-            // for(k = 0; k <= 9; k++){
-            //     fprintf(stdout, "%d ", listofnums[k]);
-            // }
-            // fprintf(stdout, "\n");
-
-            // for(k = 0; k <= 9; k++){
-            //     if(listofnums[k] != 0){
-            //         listofoptions[count] = listofnums[k];
-            //         count++;
-            //     }
-            // }
-            // fprintf(stdout, "final options: ");
-            // for(k = 0; k < count; k++){
-            //     fprintf(stdout, "%d ", listofoptions[k]);
-            // }
-            // fprintf(stdout, "\n");
-
-            // randomnum = rand() % count;
-            // board[i][j] = listofoptions[randomnum];
-            // fprintf(stdout, "number chosen: %d\n\n", board[i][j]);
-            // count = 0;
-        // }
-        // if(i == 2){
-        //     break;
-        // }
-    //}
-
-    // for (i = 0; i < 9; i++){
-    //     for(j = 0; j < 9; j++){
-    //         randomnum = rand() % 10;
-    //         if(randomnum < 5){
-    //             board[i][j] = 0;
-    //         }
-    //     }
-    // }
-
-    // for (i = 0; i < 9; i++){
-    //     fprintf(stdout, "\n");
-    //     for(j = 0; j < 9; j++){
-    //         fprintf(stdout, "%d ", board[i][j]);
-    //     }
-    // }
-    // fprintf(stdout, "\n");
-//}
+int generateMissing(int board[ROW][COL], int finalboard[ROW][COL]){
+    int i, j, randomnum, count;
+    srand(time(NULL));
+    for (i = 0; i < 9; i++){
+        for(j = 0; j < 9; j++){
+            finalboard[i][j] = board[i][j];
+        }
+    }
+    for (i = 0; i < 9; i++){
+        for(j = 0; j < 9; j++){
+            randomnum = rand() % 10;
+            if(randomnum < 5){
+                finalboard[i][j] = 0;
+                count++;
+            }
+        }
+    }
+    return count;
+}
 
 int main(int argc, char *argv[]){
 
     char input[200]; 
     int board[ROW][COL] = {0};
+    int finalboard[ROW][COL] = {0};
+    int ret;
+
 
     if(argc != 2){ //command line does not match required input
         fprintf(stderr, "Error: incorrect number of arguments.\nExpected usage: ./creator create\n");
@@ -303,9 +277,15 @@ int main(int argc, char *argv[]){
         sprintf(input, "%s", argv[1]); //save first argument to pageDirectory
         if(strcmp(input, "create") == 0){
             fprintf(stdout, "creating sodoku puzzle . . .\n");
-            if(boardFill(board) == 1){
-                printBoard(board);
+            //while((ret = boardFill(board)) != 1){}
+            boardFill(board);
+            printBoard(board);
+            ret = generateMissing(board, finalboard);
+            while(ret < 40){
+                ret = generateMissing(board, finalboard);
+                fprintf(stdout, "Missing numbers: %d", ret);
             }
+            printBoard(finalboard);
         }
         else{
             fprintf(stderr, "unrecognized command. recognized commands: [create]\n");
