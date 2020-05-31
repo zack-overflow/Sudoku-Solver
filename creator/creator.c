@@ -238,6 +238,7 @@ int boardFill(int board[ROW][COL]){
             }
         }
     }
+    board[row][col] = 0;
     return 0;
 }
 
