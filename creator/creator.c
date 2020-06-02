@@ -10,28 +10,28 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h> 
-#include <unistd.h> 
+#include <unistd.h>
 
 #define ROW 9
 #define COL 9
 #define N 9
 
-int findMove(int board[ROW][COL], int *row, int *col);
-void checkMove(int board[ROW][COL], int row, int col, int *listofnums);
-int boardFill(int board[ROW][COL]);
-int boardCheck(int board[ROW][COL], int *numofpuzzles);
-int checkBoard(int board[ROW][COL], int row, int col, int value);
-int isSafe(int board[ROW][COL], int row, int col, int value);
-void printBoard(int board[ROW][COL]);
-int generateMissing(int board[ROW][COL], int finalboard[ROW][COL]);
+int findMoveCreator(int board[ROW][COL], int *row, int *col);
+void checkMoveCreator(int board[ROW][COL], int row, int col, int *listofnums);
+int boardFillCreator(int board[ROW][COL]);
+int boardCheckCreator(int board[ROW][COL], int *numofpuzzles);
+int checkBoardCreator(int board[ROW][COL], int row, int col, int value);
+int isSafeCreator(int board[ROW][COL], int row, int col, int value);
+void printBoardCreator(int board[ROW][COL]);
+int generateMissingCreator(int board[ROW][COL], int finalboard[ROW][COL]);
 
 /* **************************************** */
 
-int checkBoard(int board[ROW][COL], int row, int col, int value){
+int checkBoardCreator(int board[ROW][COL], int row, int col, int value){
     return 1;
 }
 
-void printBoard(int board[ROW][COL]){
+void printBoardCreator(int board[ROW][COL]){
     int i,j;
     for (i = 0; i < 9; i++){
         // if((i % 3) == 0){
@@ -50,7 +50,7 @@ void printBoard(int board[ROW][COL]){
     fprintf(stdout, "\n");
 }
 
-int findMove(int board[ROW][COL], int *row, int *col){
+int findMoveCreator(int board[ROW][COL], int *row, int *col){
     for((*row) = 0; (*row) < 9; (*row)++){
         for((*col) = 0; (*col) < 9; (*col)++){
             if(board[*row][*col] == 0){
@@ -61,7 +61,7 @@ int findMove(int board[ROW][COL], int *row, int *col){
     return 0;
 }
 
-void checkMove(int board[ROW][COL], int row, int col, int *listofnums){
+void checkMoveCreator(int board[ROW][COL], int row, int col, int *listofnums){
     int i, j;
     int rowmod;
     int rowstart;
@@ -143,7 +143,7 @@ void checkMove(int board[ROW][COL], int row, int col, int *listofnums){
     // fprintf(stdout, "\n");
 }
 
-int isSafe(int board[ROW][COL], int row, int col, int value){
+int isSafeCreator(int board[ROW][COL], int row, int col, int value){
     int i, j;
     int rowmod;
     int rowstart;
@@ -181,7 +181,7 @@ int isSafe(int board[ROW][COL], int row, int col, int value){
 }
 
 
-int boardFill(int board[ROW][COL]){
+int boardFillCreator(int board[ROW][COL]){
     int i;
     int k;
     int count = 0;
@@ -193,7 +193,7 @@ int boardFill(int board[ROW][COL]){
     int randomizedindexes[N+1] = {0};
     int row, col;
 
-    if(findMove(board, &row, &col) == 0){
+    if(findMoveCreator(board, &row, &col) == 0){
         return 1;
     }
 
@@ -201,7 +201,7 @@ int boardFill(int board[ROW][COL]){
         listofoptions[k] = 0;
     }
 
-    checkMove(board, row, col, listofnums);
+    checkMoveCreator(board, row, col, listofnums);
 
     for(k = 0; k <= 9; k++){
         if(listofnums[k] != 0){
@@ -231,10 +231,10 @@ int boardFill(int board[ROW][COL]){
 
     for(i = 0; i < count; i++){
         //fprintf(stdout, "position: %d %d\n", row, col);
-        if(isSafe(board, row, col, randomizedlist[i])){
+        if(isSafeCreator(board, row, col, randomizedlist[i])){
             board[row][col] = randomizedlist[i];
             //fprintf(stdout, "number chosen: %d\n", randomizedlist[i]);
-            if(boardFill(board) == 1){
+            if(boardFillCreator(board) == 1){
                 return 1;
             }
         }
@@ -243,7 +243,7 @@ int boardFill(int board[ROW][COL]){
     return 0;
 }
 
-int boardCheck(int board[ROW][COL], int *numofpuzzles){
+int boardCheckCreator(int board[ROW][COL], int *numofpuzzles){
     int i;
     int k;
     int count = 0;
@@ -255,7 +255,7 @@ int boardCheck(int board[ROW][COL], int *numofpuzzles){
     int randomizedindexes[N+1] = {0};
     int row, col;
 
-    if(findMove(board, &row, &col) == 0){
+    if(findMoveCreator(board, &row, &col) == 0){
         (*numofpuzzles)++;
         return 0;
     }
@@ -264,7 +264,7 @@ int boardCheck(int board[ROW][COL], int *numofpuzzles){
         listofoptions[k] = 0;
     }
 
-    checkMove(board, row, col, listofnums);
+    checkMoveCreator(board, row, col, listofnums);
 
     for(k = 0; k <= 9; k++){
         if(listofnums[k] != 0){
@@ -294,10 +294,10 @@ int boardCheck(int board[ROW][COL], int *numofpuzzles){
 
     for(i = 0; i < count; i++){
         //fprintf(stdout, "position: %d %d\n", row, col);
-        if(isSafe(board, row, col, randomizedlist[i])){
+        if(isSafeCreator(board, row, col, randomizedlist[i])){
             board[row][col] = randomizedlist[i];
             //fprintf(stdout, "number chosen: %d\n", randomizedlist[i]);
-            if(boardCheck(board, numofpuzzles) == 1){
+            if(boardCheckCreator(board, numofpuzzles) == 1){
                 return 1;
             }
         }
@@ -307,7 +307,7 @@ int boardCheck(int board[ROW][COL], int *numofpuzzles){
 }
 
 
-int generateMissing(int board[ROW][COL], int finalboard[ROW][COL]){
+int generateMissingCreator(int board[ROW][COL], int finalboard[ROW][COL]){
     int i, j, randomnum, count;
     srand(time(NULL));
     for (i = 0; i < 9; i++){
@@ -326,45 +326,3 @@ int generateMissing(int board[ROW][COL], int finalboard[ROW][COL]){
     }
     return count;
 }
-
-int main(int argc, char *argv[]){
-
-    char input[200]; 
-    int board[ROW][COL] = {0};
-    int finalboard[ROW][COL] = {0};
-    int numofpuzzles = 0;
-    int ret;
-
-    if(argc != 2){ //command line does not match required input
-        fprintf(stderr, "Error: incorrect number of arguments.\nExpected usage: ./creator create\n");
-    }
-    else{
-        sprintf(input, "%s", argv[1]); //save first argument to pageDirectory
-        if(strcmp(input, "create") == 0){
-            //fprintf(stdout, "creating sodoku puzzle . . .\n");
-            boardFill(board);
-            ret = generateMissing(board, finalboard);
-            boardCheck(board, &numofpuzzles);
-            //fprintf(stdout, "Number of solutions: %d\n", numofpuzzles);
-            while((ret < 40) && (numofpuzzles != 1)){
-                ret = generateMissing(board, finalboard);
-                boardCheck(board, &numofpuzzles);
-                //fprintf(stdout, "Number of solutions: %d\n", numofpuzzles);
-                //fprintf(stdout, "Missing numbers: %d", ret);
-            }
-            // for(i = 0; i < 9; i++){
-            //     for(j = 0; j < 9; j++){
-            //         scanf("%d", &board[i][j]);
-            //     }
-            // }
-            printBoard(finalboard);
-        }
-        else{
-            fprintf(stderr, "unrecognized command. recognized commands: [create]\n");
-        }
-
-        return 0;
-    }
-
-}
-

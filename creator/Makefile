@@ -13,7 +13,7 @@ LIBS =
 # (and run `make clean; make` whenever you change this)
 FLAGS = # -DMEMTEST  # -DNOSLEEP
 
-CFLAGS = -Wall -pedantic -std=c11 -ggdb #-I$(PATHCOMMON) -I$(L)
+CFLAGS = -Wall -pedantic -std=c11 -ggdb -c #-I$(PATHCOMMON) -I$(L)
 CC = gcc
 MAKE = make
 #PATHCOMMON = ../common
@@ -24,7 +24,7 @@ $(PROG): $(OBJS)
 
 
 # Dependencies: object files depend on header files
-creator.o: #common.a #crawler.h
+creator.o: creator.h
 
 .PHONY: all clean test
 
