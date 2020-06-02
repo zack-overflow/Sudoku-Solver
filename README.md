@@ -25,10 +25,10 @@ or
 The 
 
 ### Exit Status
-Change as more are added
-	0: Ran successfully
-	1: Incorrect number of arguments
-	2: Unrecognized command
+* Change as more are added
+* 0: Ran successfully
+* 1: Incorrect number of arguments
+* 2: Unrecognized command
 
 ### Assumptions
 Sudoku will assume that
