@@ -55,9 +55,8 @@ Sudoku will check:
 ```
 .
 ├── README.md
-|__ Makefile
-|__ .gitignore
-|
+├── Makefile
+├── .gitignore
 ├── common
     ├── FILE A
     ├── FILE B
