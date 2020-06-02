@@ -13,7 +13,7 @@ LIBS =
 # (and run `make clean; make` whenever you change this)
 FLAGS = # -DMEMTEST  # -DNOSLEEP
 
-CFLAGS = -Wall -pedantic -std=c11 -ggdb #-I$(PATHCOMMON) -I$(L)
+CFLAGS = -Wall -pedantic -std=c11 -ggdb -c #-I$(PATHCOMMON) -I$(L)
 CC = gcc
 MAKE = make
 #PATHCOMMON = ../common
