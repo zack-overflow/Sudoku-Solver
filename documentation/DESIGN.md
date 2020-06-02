@@ -6,11 +6,11 @@ Our Sudoku game will have a command-line interface (CLI) as well as a graphical 
 
 The **CLI** will take one command-line argument, which will either be `create` to generate a random Sudoku board to `stdout` or `solve` to solve a board provided via `stdin`. For example:
 ```bash
-./sudokugame create > sudokuBoardExample
+./sudoku create > sudokuBoardExample
 
 OR
 
-sudokuBoardExample | ./sudokugame solve
+sudokuBoardExample | ./sudoku solve
 ```
 
 The **GUI** will allow users to press either `c` to create a new game, which will then be displayed on the screen, or `s` to solve the game currently displayed on the screen.
@@ -45,24 +45,24 @@ The solver outputs a solved Sudoku board to `stdout` in the previously specified
 
 ### Common
 We anticipate the following modules to be common for creator/solver:
-* checkBoard, which checks if a board is valid given Sudoku rules
-* printBoard, which prints a Sudoku board to `stdout`
-* readBoard, which reads in a Sudoku file stored in the specified format and generates a data structure to hold it
-* Fuzzytesting, which creates random numbers to fill a board and check for memory leaks
+* `checkBoard`, which checks if a board is valid given Sudoku rules
+* `printBoard`, which prints a Sudoku board to `stdout`
+* `readBoard`, which reads in a Sudoku file stored in the specified format and generates a data structure to hold it
+* `Fuzzytesting`, which creates random numbers to fill a board and check for memory leaks
 
 We also anticipate using a custom `sudokuCell` structure to store key information about a particular cell in the Sudoku board
 
 ### Creator
 We anticipate the following modules for our creator:
-* main, which parses command-line arguments and intializes/calls the other modules
-* boardUnique, checks if a valid Sudoku board has a unique solution
-* boardFill, creates a Sudoku board with 40 blank cells
+* `main`, which parses command-line arguments and intializes/calls the other modules
+* `boardUnique`, checks if a valid Sudoku board has a unique solution
+* `boardFill`, creates a Sudoku board with 40 blank cells
 
 ### Solver
 We anticipate the following modules for our solver:
-* main, which parses command-line arguments and intializes/calls the other modules
-* findMissing, which locates the next missing cell (cell value equal to 0)
-* solveBoard, implements algorithm to go through board and fill in each value
+* `main`, which parses command-line arguments and intializes/calls the other modules
+* `findMissing`, which locates the next missing cell (cell value equal to 0)
+* `solveBoard`, implements algorithm to go through board and fill in each value
 
 ## Psuedocode for logical/algorithmic flow
 
@@ -92,7 +92,7 @@ We anticipate the following modules for our solver:
 2. `boardFill` generates random numbers and calls `checkMove` 
 3. `checkMove` checks for valid moves and returns
 4. `checkBoard` makes sure generated board is valid
-5. `printBoard` takes generated board from `boardFill` and prints to stdout or to a file
+5. `printBoard` takes generated board from `boardFill` and prints to `stdout` or to a file
 
 #### Solver
 1. `Main` parses parameters and passes them to `readBoard`
@@ -100,7 +100,7 @@ We anticipate the following modules for our solver:
 3. `findMissing` checks board for zeroes and returns
 4. `solveBoard` implements algorithm to solve board
 5. `checkBoard` recieves solutions from `solveBoard` and checks to see if the solutions found are accurate
-6. `printBoard` takes solutions from `solveBoard` and prints to stdout or to a file
+6. `printBoard` takes solutions from `solveBoard` and prints to `stdout` or to a file
 
 ### Major Data Structures
 * sudokuCell structure - stores information about each cell including current value and "possibilities" array of remaining possible values for that cell based on the other cells in its row, column, and 3x3 box
