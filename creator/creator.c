@@ -216,9 +216,9 @@ int boardFill(int board[ROW][COL]){
     // fprintf(stdout, "\n");
     // fprintf(stdout, "randomized list: ");
     for(i = 0; i < count; i++){
-        //srand(rand()+(row*9)+col);
         srand(time(NULL));
         randomnum = rand() % count;  
+        srand(rand()+(row*9)+col); 
         while(randomizedindexes[randomnum] != 0){
             randomnum = rand() % count;
         }
@@ -279,9 +279,9 @@ int boardCheck(int board[ROW][COL], int *numofpuzzles){
     // fprintf(stdout, "\n");
     // fprintf(stdout, "randomized list: ");
     for(i = 0; i < count; i++){
-        //srand(rand()+(row*9)+col);
         srand(time(NULL));
         randomnum = rand() % count;  
+        srand(rand()+(row*9)+col);
         while(randomizedindexes[randomnum] != 0){
             randomnum = rand() % count;
         }
@@ -342,7 +342,6 @@ int main(int argc, char *argv[]){
         sprintf(input, "%s", argv[1]); //save first argument to pageDirectory
         if(strcmp(input, "create") == 0){
             //fprintf(stdout, "creating sodoku puzzle . . .\n");
-            while((ret = boardFill(board)) != 1){}
             boardFill(board);
             ret = generateMissing(board, finalboard);
             boardCheck(board, &numofpuzzles);

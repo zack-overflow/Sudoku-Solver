@@ -215,9 +215,9 @@ int boardFill(int board[ROW][COL]){
     // fprintf(stdout, "\n");
     // fprintf(stdout, "randomized list: ");
     for(i = 0; i < count; i++){
-        srand(time(NULL));   // Initialization, should only be called once.
-        multiplier = (row*9) + col;
-        randomnum = (rand()+multiplier) % count;
+        srand(time(NULL));
+        randomnum = rand() % count;  
+        srand(rand()+(row*9)+col);
         while(randomizedindexes[randomnum] != 0){
             randomnum = rand() % count;
         }
