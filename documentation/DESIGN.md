@@ -120,4 +120,4 @@ We anticipate the following modules for our solver:
     * Test various forms of invalid command line arguments
     * Test the `solver` with a puzzle with no solution
     * Test the `solver` with a puzzle with multiple solutions
-    * Test the `solver` with the output created by the `creator`
+    * Test the `solver` with the output created by the `creator

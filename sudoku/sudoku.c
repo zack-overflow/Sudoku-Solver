@@ -40,7 +40,7 @@ int main(int argc, char *argv[]) {
             printBoardCreator(board);
         } else {
             fprintf(stderr, "unrecognized command. recognized commands: [create/solve]\n");
-            return 1;
+            return 2;
         }
 
         return 0;
