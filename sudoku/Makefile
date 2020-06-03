@@ -9,21 +9,22 @@ OBJS = sudoku.o ../creator/creator.o ../solver/solver.o
 # (and run `make clean; make` whenever you change this)
 FLAGS = # -DMEMTEST  # -DNOSLEEP
 
-CFLAGS = -Wall -pedantic -std=gnu11 -ggdb -I../solver -I../creator
+CFLAGS = -Wall -pedantic -std=gnu11 -ggdb -I../solver -I../creator -I../common 
 CC = gcc
 MAKE = make
+PATHCOMMON = ../common
+PATHCREATOR = ../creator
+PATHSOLVER = ../solver
 
 
 $(PROG): $(OBJS)
-	$(CC) $(CFLAGS) $^ -o $@
+	$(CC) $(CFLAGS) $(PATHCOMMON)/common.o $^ -o $@
 
 
 # Dependencies: object files depend on header files
 sudoku.o: sudoku.c
 
-.PHONY: all clean test
-
-all: sudoku
+.PHONY: clean test
 
 test:
 	bash -v testing.sh

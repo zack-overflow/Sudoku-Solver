@@ -1,6 +1,7 @@
 #define ROW 9
 #define COL 9
 #define N 9
+#include "common.h"
 
 void checkMove(int board[ROW][COL], int row, int col, int *listofnums){
     int i, j;

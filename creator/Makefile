@@ -1,34 +1,18 @@
-# object files, and the target library
-#L=../libcs50
-
-
-PROG = creator
-OBJS = creator.o #../common/pagedir.o
-#LIB = $(L)/libcs50.a
-LIBS = 
-
 # add -DNOSLEEP to disable the automatic sleep after web-page fetches
 #               (students, please do not use -DNOSLEEP!)
 # add -DMEMTEST for memory tracking report in indexer
 # (and run `make clean; make` whenever you change this)
 FLAGS = # -DMEMTEST  # -DNOSLEEP
 
-CFLAGS = -Wall -pedantic -std=c11 -ggdb -c #-I$(PATHCOMMON) -I$(L)
+PATHCOMMON = ../common
+CFLAGS = -Wall -pedantic -std=c11 -ggdb -I$(PATHCOMMON)
 CC = gcc
 MAKE = make
-#PATHCOMMON = ../common
-
-
-$(PROG): $(OBJS)
-	$(CC) $(CFLAGS) $^ $(LIBS) -o $@
-
 
 # Dependencies: object files depend on header files
-creator.o: creator.h
+creator.o: creator.h $(PATHCOMMON)/common.o 
 
-.PHONY: all clean test
-
-all: creator #pagedir
+.PHONY: clean test
 
 test: 
 	bash -v testing.sh
