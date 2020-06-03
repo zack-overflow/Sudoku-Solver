@@ -125,3 +125,22 @@ int boardFillSolver(int board[ROW][COL]){
     board[row][col] = 0;
     return 0;
 }
+
+#ifdef MYTEST
+int main() {
+    int multSolutionBoard[ROW][COL] = {0};
+    FILE *fp;
+    fp = fopen("../creator/multSolutionTest", "r");
+    for(int i = 0; i < 9; i++){
+        for(int j = 0; j < 9; j++){
+            fscanf(fp, "%d", &multSolutionBoard[i][j]);
+        }
+    }
+    printf("Testing boardFillSolver\n");
+    boardFillSolver(multSolutionBoard);
+    printf("Printing solved board\n");
+    printBoardSolver(multSolutionBoard);
+
+    return 0;
+}
+#endif

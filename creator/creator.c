@@ -167,3 +167,39 @@ int generateMissing(int board[ROW][COL], int finalboard[ROW][COL]){
     }
     return count;
 }
+#ifdef MYTEST
+int main() {
+    int singleSolutionBoard[ROW][COL] = {0};
+    int multSolutionBoard[ROW][COL] = {0};
+    int singlenumofpuzzles = 0;
+    int multnumofpuzzles = 0;
+    int finalboard[ROW][COL] = {0};
+    int nummissing;
+    FILE *fp;
+    fp = fopen("multSolutionTest", "r");
+
+    printf("Testing board fill creator\n");
+    boardFillCreator(singleSolutionBoard);
+    printf("printing result of board fill creator\n");
+    printBoardCreator(singleSolutionBoard);
+
+    for(int i = 0; i < 9; i++){
+        for(int j = 0; j < 9; j++){
+            fscanf(fp, "%d", &multSolutionBoard[i][j]);
+        }
+    }
+
+    boardCheckCreator(singleSolutionBoard, &singlenumofpuzzles);
+    boardCheckCreator(multSolutionBoard, &multnumofpuzzles);
+
+    printf("Number of solutions for single solution board: %d\n" singlenumofpuzzles);
+    printf("Number of solutions for multi solution board: %d\n" multnumofpuzzles);
+
+    printf("Testing generate missing\n");
+    nummissing = generateMissing(singleSolutionBoard, finalboard);
+    printBoardCreator(finalboard);
+    printf("Number of missing cells: %d\n", nummissing);
+
+    return 0;
+}
+#endif
