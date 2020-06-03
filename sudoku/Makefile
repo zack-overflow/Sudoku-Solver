@@ -1,11 +1,7 @@
 # object files, and the target library
-#L=../libcs50
 
-
-PROG = solver
-OBJS = solver.o #../common/pagedir.o
-#LIB = $(L)/libcs50.a
-LIBS = 
+PROG = sudoku
+OBJS = sudoku.o ../creator/creator.o ../solver/solver.o
 
 # add -DNOSLEEP to disable the automatic sleep after web-page fetches
 #               (students, please do not use -DNOSLEEP!)
@@ -13,24 +9,23 @@ LIBS =
 # (and run `make clean; make` whenever you change this)
 FLAGS = # -DMEMTEST  # -DNOSLEEP
 
-CFLAGS = -Wall -pedantic -std=c11 -ggdb -c #-I$(PATHCOMMON) -I$(L)
+CFLAGS = -Wall -pedantic -std=gnu11 -ggdb -I../solver -I../creator
 CC = gcc
 MAKE = make
-#PATHCOMMON = ../common
 
 
 $(PROG): $(OBJS)
-	$(CC) $(CFLAGS) $^ $(LIBS) -o $@
+	$(CC) $(CFLAGS) $^ -o $@
 
 
 # Dependencies: object files depend on header files
-creator.o: #common.a #crawler.h
+sudoku.o: sudoku.c
 
 .PHONY: all clean test
 
-all: solver #pagedir
+all: sudoku
 
-test: 
+test:
 	bash -v testing.sh
 
 # clean up after our compilation

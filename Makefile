@@ -20,7 +20,6 @@ all:
 ############## clean up after compilation ##########
 
 clean:
-	rm -f *~ *.o *.dSYM
-	rm -f $(PROG)
 	$(MAKE) -C creator clean
 	$(MAKE) -C solver clean
+	$(MAKE) -C sudoku clean

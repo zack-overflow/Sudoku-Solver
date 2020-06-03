@@ -8,7 +8,7 @@ This Sudoku is a standalone program that can either create or solve a valid sudo
 * The Sudoku solver is implemented in `solver.c`.
 * The Sudoku creator is implemented in `creator.c`.
 
-To run, use syntax
+To run, from the sudoku directory, use syntax
 ```
 ./sudoku create
 ```
@@ -47,9 +47,11 @@ Sudoku will check:
 * We implement the `solver` and `creator` separately in their own modules, and put shared code in a `common` module
 
 ### Compilation
-* To compile, simply `make`
-* To test, `make test`
-* To clean, `make clean`
+* To compile creator, solver, and sudoku, simply `make`
+* To test all, `make test`
+* To clean all, `make clean`
+* Each of the above commands also works within the individual directories for all three components
+* Note: you will get a warning when compiling creator and solver since they do not have a `main` function. They are written in separate files purely for organizational purposes and not intended to be run, hence why they do not have `main`.
 
 ### Project Structure
 ```
@@ -61,14 +63,17 @@ Sudoku will check:
     ├── FILE A
     ├── FILE B
     └── FILE C
+├── sudoku
+    ├── sudoku.c
+    └── Makefile
 ├── creator
     ├── creator.c
-    ├── FILE J
-    └── FILE K
+    ├── creator.h
+    └── Makefile
 ├── solver
     ├── solver.c
-    ├── FILE Y
-    └── FILE Z
+    ├── solver.h
+    └── Makefile
 └── documentation
     ├── DESIGN.md
     ├── IMPLEMENTATION.md
