@@ -50,14 +50,36 @@ void printBoard(int board[ROW][COL]){
 }
 
 int findMove(int board[ROW][COL], int *row, int *col){
+    int listofoptions[N+1] = {0};
+    int listofnums[N+1] = {0};
+    int k;
+    int count = 0;
+    int min = 10;
+    int bestrow;
+    int bestcol;
+    int flag = 0;
+
     for((*row) = 0; (*row) < 9; (*row)++){
         for((*col) = 0; (*col) < 9; (*col)++){
             if(board[*row][*col] == 0){
-                return 1;
+                flag = 1;
+                checkMove(board, *row, *col, listofnums);
+                for(k = 0; k <= 9; k++){
+                    if(listofnums[k] != 0){
+                        listofoptions[count] = listofnums[k];
+                        count++;
+                    }
+                }
+                if(count < min){
+                    bestrow = *row;
+                    bestcol = *col;
+                }
             }
         }
     }
-    return 0;
+    *row = bestrow;
+    *col = bestcol;
+    return flag;
 }
 
 void checkMove(int board[ROW][COL], int row, int col, int *listofnums){
@@ -185,7 +207,7 @@ int boardFill(int board[ROW][COL]){
     int k;
     int count = 0;
     int randomnum;
-    int multiplier;
+    //int multiplier;
     int listofnums[N+1] = {0};
     int listofoptions[N+1] = {0};
     int randomizedlist[N+1] = {0};
@@ -214,8 +236,8 @@ int boardFill(int board[ROW][COL]){
     // }
     // fprintf(stdout, "\n");
     // fprintf(stdout, "randomized list: ");
+    srand(time(NULL));
     for(i = 0; i < count; i++){
-        srand(time(NULL));
         randomnum = rand() % count;  
         srand(rand()+(row*9)+col);
         while(randomizedindexes[randomnum] != 0){
