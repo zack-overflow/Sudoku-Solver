@@ -11,42 +11,28 @@
 #include <string.h>
 #include <time.h> 
 #include <unistd.h>
+#include <common.h>
 
 #define ROW 9
 #define COL 9
 #define N 9
 
 int findMoveCreator(int board[ROW][COL], int *row, int *col);
-void checkMoveCreator(int board[ROW][COL], int row, int col, int *listofnums);
 int boardFillCreator(int board[ROW][COL]);
 int boardCheckCreator(int board[ROW][COL], int *numofpuzzles);
-int checkBoardCreator(int board[ROW][COL], int row, int col, int value);
-int isSafeCreator(int board[ROW][COL], int row, int col, int value);
 void printBoardCreator(int board[ROW][COL]);
-int generateMissingCreator(int board[ROW][COL], int finalboard[ROW][COL]);
+int generateMissing(int board[ROW][COL], int finalboard[ROW][COL]);
 
 /* **************************************** */
-
-int checkBoardCreator(int board[ROW][COL], int row, int col, int value){
-    return 1;
-}
 
 void printBoardCreator(int board[ROW][COL]){
     int i,j;
     for (i = 0; i < 9; i++){
-        // if((i % 3) == 0){
-        //     fprintf(stdout, "-------------------------");
-        // }
         for(j = 0; j < 9; j++){
-            // if((j % 3) == 0){
-            //     fprintf(stdout, "| ");
-            // }
             fprintf(stdout, "%d ", board[i][j]);
         }
          fprintf(stdout, "\n");
-        //fprintf(stdout, "|\n");
     }
-    // fprintf(stdout, "-------------------------");
     fprintf(stdout, "\n");
 }
 
@@ -60,126 +46,6 @@ int findMoveCreator(int board[ROW][COL], int *row, int *col){
     }
     return 0;
 }
-
-void checkMoveCreator(int board[ROW][COL], int row, int col, int *listofnums){
-    int i, j;
-    int rowmod;
-    int rowstart;
-    int colmod;
-    int colstart;
-    int index;
-    int numstaken[N+1] = {0};
-
-    for(i = 0; i <= 9; i++){
-        listofnums[i] = 0;
-    }
-
-    //check column
-    for(i = 0; i < 9; i++){
-        index = board[row][i];
-        numstaken[index] = index;
-    }
-    for(i = 0; i <= 9; i++){
-        if(numstaken[i] == 0){
-            listofnums[i] = i;
-        }
-    }
-    // fprintf(stdout, "column list: ");
-    // for(i = 0; i <= 9; i++){
-    //     fprintf(stdout, "%d ", listofnums[i]);
-    // }
-    // fprintf(stdout, "\n");
-
-    //reset numstaken
-    for(i = 0; i <= 9; i++){
-        numstaken[i] = 0;
-    }
-
-
-    //check row
-    for(i = 0; i < 9; i++){
-        index = board[i][col];
-        numstaken[index] = index;
-    }
-    //fprintf(stdout, "check\n");
-    for(i = 0; i <= 9; i++){
-        if(listofnums[i] == numstaken[i]){
-            listofnums[i] = 0;
-        }
-    }
-    // fprintf(stdout, "row list: ");
-    // for(i = 0; i <= 9; i++){
-    //     fprintf(stdout, "%d ", listofnums[i]);
-    // }
-    // fprintf(stdout, "\n");
-
-    //reset numstaken
-    for(i = 0; i <= 9; i++){
-        numstaken[i] = 0;
-    }
-
-    //check box
-    rowmod = row % 3;
-    colmod = col % 3;
-
-    rowstart = row - rowmod;
-    colstart = col - colmod;
-
-    for(i = 0; i < 3; i++){
-        for(j = 0; j < 3; j++){
-            index = board[rowstart + i][colstart + j];
-            numstaken[index] = index;
-        }
-    }
-    for(i = 0; i <= 9; i++){
-        if(listofnums[i] == numstaken[i]){
-            listofnums[i] = 0;
-        }
-    }
-    // fprintf(stdout, "box list: ");
-    // for(i = 0; i <= 9; i++){
-    //     fprintf(stdout, "%d ", listofnums[i]);
-    // }
-    // fprintf(stdout, "\n");
-}
-
-int isSafeCreator(int board[ROW][COL], int row, int col, int value){
-    int i, j;
-    int rowmod;
-    int rowstart;
-    int colmod;
-    int colstart;
-
-    //check column
-    for(i = 0; i < 9; i++){
-        if(board[i][col] == value){
-            return 0;
-        }
-    }
-
-    //check row
-    for(i = 0; i < 9; i++){
-        if(board[row][i] == value){
-            return 0;
-        }
-    }
-
-    //check box
-    rowmod = row % 3;
-    colmod = col % 3;
-    rowstart = row - rowmod;
-    colstart = col - colmod;
-    for(i = 0; i < 3; i++){
-        for(j = 0; j < 3; j++){
-            if(board[rowstart + i][colstart + j] == value){
-                return 0;
-            }
-        }
-    }
-
-    return 1;
-}
-
 
 int boardFillCreator(int board[ROW][COL]){
     int i;
@@ -201,7 +67,7 @@ int boardFillCreator(int board[ROW][COL]){
         listofoptions[k] = 0;
     }
 
-    checkMoveCreator(board, row, col, listofnums);
+    checkMove(board, row, col, listofnums);
 
     for(k = 0; k <= 9; k++){
         if(listofnums[k] != 0){
@@ -231,7 +97,7 @@ int boardFillCreator(int board[ROW][COL]){
 
     for(i = 0; i < count; i++){
         //fprintf(stdout, "position: %d %d\n", row, col);
-        if(isSafeCreator(board, row, col, randomizedlist[i])){
+        if(isSafe(board, row, col, randomizedlist[i])){
             board[row][col] = randomizedlist[i];
             //fprintf(stdout, "number chosen: %d\n", randomizedlist[i]);
             if(boardFillCreator(board) == 1){
@@ -264,7 +130,7 @@ int boardCheckCreator(int board[ROW][COL], int *numofpuzzles){
         listofoptions[k] = 0;
     }
 
-    checkMoveCreator(board, row, col, listofnums);
+    checkMove(board, row, col, listofnums);
 
     for(k = 0; k <= 9; k++){
         if(listofnums[k] != 0){
@@ -294,7 +160,7 @@ int boardCheckCreator(int board[ROW][COL], int *numofpuzzles){
 
     for(i = 0; i < count; i++){
         //fprintf(stdout, "position: %d %d\n", row, col);
-        if(isSafeCreator(board, row, col, randomizedlist[i])){
+        if(isSafe(board, row, col, randomizedlist[i])){
             board[row][col] = randomizedlist[i];
             //fprintf(stdout, "number chosen: %d\n", randomizedlist[i]);
             if(boardCheckCreator(board, numofpuzzles) == 1){
@@ -307,7 +173,7 @@ int boardCheckCreator(int board[ROW][COL], int *numofpuzzles){
 }
 
 
-int generateMissingCreator(int board[ROW][COL], int finalboard[ROW][COL]){
+int generateMissing(int board[ROW][COL], int finalboard[ROW][COL]){
     int i, j, randomnum, count;
     srand(time(NULL));
     for (i = 0; i < 9; i++){
