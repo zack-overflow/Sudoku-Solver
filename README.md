@@ -8,7 +8,7 @@ This Sudoku is a standalone program that can either create or solve a valid sudo
 * The Sudoku solver is implemented in `solver.c`.
 * The Sudoku creator is implemented in `creator.c`.
 
-To run, from the sudoku directory, use syntax
+To run, **from the sudoku directory** (*not* the root directory), use syntax
 ```
 ./sudoku create
 ```
