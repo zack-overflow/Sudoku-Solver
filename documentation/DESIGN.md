@@ -50,8 +50,6 @@ We anticipate the following modules to be common for creator/solver:
 * `readBoard`, which reads in a Sudoku file stored in the specified format and generates a data structure to hold it
 * `Fuzzytesting`, which creates random numbers to fill a board and check for memory leaks
 
-We also anticipate using a custom `sudokuCell` structure to store key information about a particular cell in the Sudoku board
-
 ### Creator
 We anticipate the following modules for our creator:
 * `main`, which parses command-line arguments and intializes/calls the other modules
@@ -103,8 +101,7 @@ We anticipate the following modules for our solver:
 6. `printBoard` takes solutions from `solveBoard` and prints to `stdout` or to a file
 
 ### Major Data Structures
-* sudokuCell structure - stores information about each cell including current value and "possibilities" array of remaining possible values for that cell based on the other cells in its row, column, and 3x3 box
-* sudokuBoard - a 2d array that stores the 81 cells in the game
+* We use a 9 x 9 2D array of integers to store each value in the sudoku board.
 
 ### Testing Plan
 * Unit Testing
