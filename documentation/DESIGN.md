@@ -45,22 +45,24 @@ The solver outputs a solved Sudoku board to `stdout` in the previously specified
 
 ### Common
 We anticipate the following modules to be common for creator/solver:
-* `checkBoard`, which checks if a board is valid given Sudoku rules
-* `printBoard`, which prints a Sudoku board to `stdout`
-* `readBoard`, which reads in a Sudoku file stored in the specified format and generates a data structure to hold it
-* `Fuzzytesting`, which creates random numbers to fill a board and check for memory leaks
+* `checkmove`, checks the row, column, and box for a cell and see what numbers are still available to put there 
+* `isSafe`, checks if it is valid to input a certain value at a certain position in the board
 
 ### Creator
 We anticipate the following modules for our creator:
-* `main`, which parses command-line arguments and intializes/calls the other modules
-* `boardUnique`, checks if a valid Sudoku board has a unique solution
-* `boardFill`, creates a Sudoku board with 40 blank cells
+* `boardCheckCreator`, checks if a valid Sudoku board has a unique solution
+* `boardFillCreator`, creates a Sudoku board that follows sudoku rules
+* `printBoardCreator`, prints formatted board
+* `generateMissing`, replaces numbers on valid board with 0
 
 ### Solver
 We anticipate the following modules for our solver:
-* `main`, which parses command-line arguments and intializes/calls the other modules
-* `findMissing`, which locates the next missing cell (cell value equal to 0)
-* `solveBoard`, implements algorithm to go through board and fill in each value
+* `boardFillSolver`, implements algorithm to go through board and fill in each value
+* `printBoardSolver`, prints formatted board
+
+### Solver
+We anticipate the following modules for our solver:
+* `main`, which parses arguments and initializes other modules
 
 ## Psuedocode for logical/algorithmic flow
 
@@ -86,19 +88,22 @@ We anticipate the following modules for our solver:
 ## Dataflow Through Modules
 
 #### Creator
-1. `Main` parses parameters, checks validity, and calls `boardFill`
-2. `boardFill` generates random numbers and calls `checkMove` 
-3. `checkMove` checks for valid moves and returns
-4. `checkBoard` makes sure generated board is valid
-5. `printBoard` takes generated board from `boardFill` and prints to `stdout` or to a file
+1. `boardFillCreator` generates random numbers using recursion and calls `checkMove`, `isSafe` and `findmovecreator`
+2. `checkMove` checks for valid moves 
+3. `isSafe` makes sure an input is valid
+4. `findmovecreator` finds the next available move in the board
+5. `boardCheckCreator` checks the uniqueness of the solution of the board using recursion and calls `checkMove`, `isSafe` and `findmovecreator`
+6. `generateMissing` generates missing cells in the board
+7. `printBoardCreator` prints board
 
 #### Solver
-1. `Main` parses parameters and passes them to `readBoard`
-2. `readBoard` reads parameters, creates a sudoku board structure, and passes the board to `findMissing`
-3. `findMissing` checks board for zeroes and returns
-4. `solveBoard` implements algorithm to solve board
-5. `checkBoard` recieves solutions from `solveBoard` and checks to see if the solutions found are accurate
-6. `printBoard` takes solutions from `solveBoard` and prints to `stdout` or to a file
+1. `boardFillSolver` calls on `findMoveSolver`, `checkMove`, `isSafe` and uses recursion to solve the board 
+2. `findMoveSolver` calls on `checkMove` and finds the next cell that needs to be solved
+3. `printBoardSolver` prints board
+
+
+#### Sudoku
+1. `Main` parses parameters, checks validity of parameters, initializes modules
 
 ### Major Data Structures
 * We use a 9 x 9 2D array of integers to store each value in the sudoku board.
