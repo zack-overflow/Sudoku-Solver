@@ -1,3 +1,7 @@
+# Makefile
+# CS50 Project
+# Team Git That Money
+
 
 # add -DNOSLEEP to disable the automatic sleep after web-page fetches
 #               (students, please do not use -DNOSLEEP!)
@@ -5,18 +9,21 @@
 # (and run `make clean; make` whenever you change this)
 FLAGS = # -DMEMTEST  # -DNOSLEEP
 
-CFLAGS = -Wall -pedantic -std=c11 -ggdb
+CFLAGS = -Wall -pedantic -std=gnu11 -ggdb
 CC = gcc
 MAKE = make
 
-common.o: common.h
+.PHONY: clean test# all
 
-.PHONY: clean test
+common.o: common.h
 
 test: 
 	bash -v testing.sh
 
+fuzzytesting: fuzzytesting.c
+	$(CC) $(CFLAGS) $^ -o $@
+
 # clean up after our compilation
 clean:
 	rm -rf *~ *.o *.dSYM
-	rm -rf $(PROG)
+	rm -rf fuzzytesting
