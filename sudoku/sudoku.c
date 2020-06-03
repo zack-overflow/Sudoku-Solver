@@ -44,7 +44,7 @@ int main(int argc, char *argv[]) {
                     if(board[i][j] != 0){
                         if(isSafe(board, i, j, board[i][j]) == 0){
                             fprintf(stderr, "Error: board inputted is invalid\n");
-                            break;
+                            return 0;
                         }
                     }
                     originalboard[i][j] = board[i][j];
