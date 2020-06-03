@@ -21,11 +21,11 @@ int main(int argc, char *argv[]) {
         sprintf(input, "%s", argv[1]); // save type of action
         if(strcmp(input, "create") == 0) {
             int numofpuzzles = 0;
-            boardFillCreator(board);
-            ret = generateMissingCreator(board, finalboard);
-            boardCheckCreator(board, &numofpuzzles);
+            boardFill(board);
+            ret = generateMissing(board, finalboard);
+            boardCheck(board, &numofpuzzles);
             while((ret < 40) && (numofpuzzles !=1)){
-                ret = generateMissingCreator(board, finalboard);
+                ret = generateMissing(board, finalboard);
                 boardCheckCreator(board, &numofpuzzles);
             }
             printBoardCreator(finalboard);

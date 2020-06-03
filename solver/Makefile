@@ -1,8 +1,6 @@
 # object files, and the target library
 #L=../libcs50
 
-
-PROG = solver
 OBJS = solver.o #../common/pagedir.o
 #LIB = $(L)/libcs50.a
 LIBS = 
@@ -13,22 +11,14 @@ LIBS =
 # (and run `make clean; make` whenever you change this)
 FLAGS = # -DMEMTEST  # -DNOSLEEP
 
-CFLAGS = -Wall -pedantic -std=c11 -ggdb -c #-I$(PATHCOMMON) -I$(L)
+CFLAGS = -Wall -pedantic -std=c11 -ggdb  #-I$(PATHCOMMON) -I$(L)
 CC = gcc
 MAKE = make
-#PATHCOMMON = ../common
+PATHCOMMON = ../common
 
+solver.o: solver.c #$(PATHCOMMON)/common.o
 
-$(PROG): $(OBJS)
-	$(CC) $(CFLAGS) $^ $(LIBS) -o $@
-
-
-# Dependencies: object files depend on header files
-creator.o: #common.a #crawler.h
-
-.PHONY: all clean test
-
-all: solver #pagedir
+.PHONY: clean test
 
 test: 
 	bash -v testing.sh
