@@ -81,8 +81,8 @@ int boardFillCreator(int board[ROW][COL]){
     // }
     // fprintf(stdout, "\n");
     // fprintf(stdout, "randomized list: ");
+    srand(time(NULL));
     for(i = 0; i < count; i++){
-        srand(time(NULL));
         randomnum = rand() % count;  
         srand(rand()+(row*9)+col); 
         while(randomizedindexes[randomnum] != 0){
@@ -144,8 +144,8 @@ int boardCheckCreator(int board[ROW][COL], int *numofpuzzles){
     // }
     // fprintf(stdout, "\n");
     // fprintf(stdout, "randomized list: ");
+    srand(time(NULL));
     for(i = 0; i < count; i++){
-        srand(time(NULL));
         randomnum = rand() % count;  
         srand(rand()+(row*9)+col);
         while(randomizedindexes[randomnum] != 0){
