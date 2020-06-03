@@ -1,24 +1,25 @@
 /* 
- * creator.c - CS50 'creator' module
+ * solver.c - CS50 'solver' module
  *
- * see README.md for more information.
+ * Module to solve a sudoku puzzle and print the solution.
+ * see README.md and DESIGN.md for more information.
  *
- * Stuart Hayes, May 2020
+ * Stuart Hayes, Sherry Liu, Natalie Ogbuagu, Zack Gottesman, June 2020
  */
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <time.h> 
-#include <unistd.h> 
+#include "common.h"
+#include "solver.h"
 
 #define ROW 9
 #define COL 9
 #define N 9
 
+// local functions
 int findMoveSolver(int board[ROW][COL], int *row, int *col);
-int boardFillSolver(int board[ROW][COL]);
-void printBoardSolver(int board[ROW][COL]);
 
 /* **************************************** */
 
@@ -86,7 +87,7 @@ int boardFillSolver(int board[ROW][COL]){
     int randomizedindexes[N+1] = {0};
     int row, col;
 
-    if(findMove(board, &row, &col) == 0){
+    if(findMoveSolver(board, &row, &col) == 0){
         return 1;
     }
 
@@ -116,7 +117,7 @@ int boardFillSolver(int board[ROW][COL]){
     for(i = 0; i < count; i++){
         if(isSafe(board, row, col, randomizedlist[i])){
             board[row][col] = randomizedlist[i];
-            if(boardFill(board) == 1){
+            if(boardFillSolver(board) == 1){
                 return 1;
             }
         }

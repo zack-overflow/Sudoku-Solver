@@ -13,6 +13,7 @@ FLAGS = # -DMEMTEST  # -DNOSLEEP
 ############## default: make all libs and programs ##########
 
 all:
+	$(MAKE) -C common
 	$(MAKE) -C creator
 	$(MAKE) -C solver
 	$(MAKE) -C sudoku
@@ -20,6 +21,7 @@ all:
 ############## clean up after compilation ##########
 
 clean:
+	$(MAKE) -C common clean
 	$(MAKE) -C creator clean
 	$(MAKE) -C solver clean
 	$(MAKE) -C sudoku clean

@@ -5,12 +5,11 @@
 # (and run `make clean; make` whenever you change this)
 FLAGS = # -DMEMTEST  # -DNOSLEEP
 
-PATHCOMMON = ../common
-CFLAGS = -Wall -pedantic -std=c11 -ggdb -I$(PATHCOMMON)
+CFLAGS = -Wall -pedantic -std=c11 -ggdb
 CC = gcc
 MAKE = make
 
-solver.o: solver.h $(PATHCOMMON)/common.o
+common.o: common.h
 
 .PHONY: clean test
 

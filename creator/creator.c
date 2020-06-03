@@ -1,9 +1,10 @@
 /* 
  * creator.c - CS50 'creator' module
  *
- * see README.md for more information.
+ * Module to generate a sudoku puzzle with a unique solution.
+ * see README.md and DESIGN.md for more information.
  *
- * Stuart Hayes, May 2020
+ * Stuart Hayes, Sherry Liu, Natalie Ogbuagu, Zack Gottesman, June 2020
  */
 
 #include <stdio.h>
@@ -11,17 +12,15 @@
 #include <string.h>
 #include <time.h> 
 #include <unistd.h>
-#include <common.h>
+#include "common.h"
+#include "creator.h"
 
 #define ROW 9
 #define COL 9
 #define N 9
 
+// local functions
 int findMoveCreator(int board[ROW][COL], int *row, int *col);
-int boardFillCreator(int board[ROW][COL]);
-int boardCheckCreator(int board[ROW][COL], int *numofpuzzles);
-void printBoardCreator(int board[ROW][COL]);
-int generateMissing(int board[ROW][COL], int finalboard[ROW][COL]);
 
 /* **************************************** */
 
@@ -52,7 +51,6 @@ int boardFillCreator(int board[ROW][COL]){
     int k;
     int count = 0;
     int randomnum;
-    //int multiplier;
     int listofnums[N+1] = {0};
     int listofoptions[N+1] = {0};
     int randomizedlist[N+1] = {0};
@@ -75,12 +73,6 @@ int boardFillCreator(int board[ROW][COL]){
             count++;
         }
     }
-    // fprintf(stdout, "final options: ");    
-    // for(k = 0; k < count; k++){
-    //     fprintf(stdout, "%d ", listofoptions[k]);
-    // }
-    // fprintf(stdout, "\n");
-    // fprintf(stdout, "randomized list: ");
     srand(time(NULL));
     for(i = 0; i < count; i++){
         randomnum = rand() % count;  
@@ -89,17 +81,12 @@ int boardFillCreator(int board[ROW][COL]){
             randomnum = rand() % count;
         }
         randomizedindexes[randomnum] = 1;
-        //fprintf(stdout, "random number: %d\n", randomnum);
         randomizedlist[i] = listofoptions[randomnum];
-        //fprintf(stdout, "%d ", randomizedlist[i]);
     }
-    //fprintf(stdout, "\n");
 
     for(i = 0; i < count; i++){
-        //fprintf(stdout, "position: %d %d\n", row, col);
         if(isSafe(board, row, col, randomizedlist[i])){
             board[row][col] = randomizedlist[i];
-            //fprintf(stdout, "number chosen: %d\n", randomizedlist[i]);
             if(boardFillCreator(board) == 1){
                 return 1;
             }
@@ -114,7 +101,6 @@ int boardCheckCreator(int board[ROW][COL], int *numofpuzzles){
     int k;
     int count = 0;
     int randomnum;
-    //int multiplier;
     int listofnums[N+1] = {0};
     int listofoptions[N+1] = {0};
     int randomizedlist[N+1] = {0};
@@ -138,12 +124,6 @@ int boardCheckCreator(int board[ROW][COL], int *numofpuzzles){
             count++;
         }
     }
-    // fprintf(stdout, "final options: ");    
-    // for(k = 0; k < count; k++){
-    //     fprintf(stdout, "%d ", listofoptions[k]);
-    // }
-    // fprintf(stdout, "\n");
-    // fprintf(stdout, "randomized list: ");
     srand(time(NULL));
     for(i = 0; i < count; i++){
         randomnum = rand() % count;  
@@ -152,17 +132,12 @@ int boardCheckCreator(int board[ROW][COL], int *numofpuzzles){
             randomnum = rand() % count;
         }
         randomizedindexes[randomnum] = 1;
-        //fprintf(stdout, "random number: %d\n", randomnum);
         randomizedlist[i] = listofoptions[randomnum];
-        //fprintf(stdout, "%d ", randomizedlist[i]);
     }
-    //fprintf(stdout, "\n");
 
     for(i = 0; i < count; i++){
-        //fprintf(stdout, "position: %d %d\n", row, col);
         if(isSafe(board, row, col, randomizedlist[i])){
             board[row][col] = randomizedlist[i];
-            //fprintf(stdout, "number chosen: %d\n", randomizedlist[i]);
             if(boardCheckCreator(board, numofpuzzles) == 1){
                 return 1;
             }

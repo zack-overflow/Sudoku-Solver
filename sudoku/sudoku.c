@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+#include "common.h"
 #include "creator.h"
 #include "solver.h"
 
@@ -21,9 +22,9 @@ int main(int argc, char *argv[]) {
         sprintf(input, "%s", argv[1]); // save type of action
         if(strcmp(input, "create") == 0) {
             int numofpuzzles = 0;
-            boardFill(board);
+            boardFillCreator(board);
             ret = generateMissing(board, finalboard);
-            boardCheck(board, &numofpuzzles);
+            boardCheckCreator(board, &numofpuzzles);
             while((ret < 40) && (numofpuzzles !=1)){
                 ret = generateMissing(board, finalboard);
                 boardCheckCreator(board, &numofpuzzles);
@@ -36,8 +37,9 @@ int main(int argc, char *argv[]) {
                     scanf("%d", &board[i][j]);
                 }
             }
-            boardFillCreator(board);
-            printBoardCreator(board);
+            fprintf(stdout, "solving sudoku puzzle . . .\n\n");
+            boardFillSolver(board);
+            printBoardSolver(board);
         } else {
             fprintf(stderr, "unrecognized command. recognized commands: [create/solve]\n");
             return 2;
