@@ -6,38 +6,44 @@
 
 ### Error Check:
 #### Check arguments
-##### Too few arguments
+Too few arguments
 ```
 ./sudoku
 ```
 
-##### Too many arguments
+
+Too many arguments
 ```
 ./sudoku arg1 arg2
 ```
 
-##### Argument is not a valid choice
+
+Argument is not a valid choice
 ```
 ./sudoku invalidChoice
 ```
 
-### Preliminary check for Valid arguments
-#### Check each valid argument
-##### Check create
+
+
+### Check each valid argument
+Check create
 ```
 ./sudoku create
 ```
 
-#####
+Check solve, using sudoku boards from `testboard`
 ```
-./sudoku solve < testing.sh
+./sudoku solve < ../solver/testboard
 ```
 
 ### Unit testing
-ASK DURING MEETING
+Unit testing is performed for each helper function through macros.
 
 ### Fuzzytesting
-:)
+Groups of 81 random numbers are generated to perform fuzzytesting on `solver` 
+```
+./sudoku solve < ../common/./fuzzytesting 50 8
+```
 
 
 
