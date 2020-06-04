@@ -1,23 +1,25 @@
 
-# add -DNOSLEEP to disable the automatic sleep after web-page fetches
-#               (students, please do not use -DNOSLEEP!)
-# add -DMEMTEST for memory tracking report in indexer
-# (and run `make clean; make` whenever you change this)
-FLAGS = # -DMEMTEST  # -DNOSLEEP
-
+PROG = solvertest
 PATHCOMMON = ../common
 CFLAGS = -Wall -pedantic -std=c11 -ggdb -I$(PATHCOMMON)
 CC = gcc
 MAKE = make
+UNITTEST = -DMYTEST
 
 solver.o: solver.h $(PATHCOMMON)/common.o
 
-.PHONY: clean test
+$(PROG): $(PATHCOMMON)/common.o solver.c
+	$(CC) $(CFLAGS) $(UNITTEST) $^ -o $@
 
-test: 
-	bash -v testing.sh
+.PHONY: clean test valgrind
+
+test: $(PROG)
+	./$(PROG)
+
+valgrind: $(PROG)
+	valgrind --track-origins=yes ./$(PROG)
 
 # clean up after our compilation
 clean:
-	rm -rf *~ *.o *.dSYM
+	rm -rf *~ *.o *.dSYM vgcore*
 	rm -rf $(PROG)
