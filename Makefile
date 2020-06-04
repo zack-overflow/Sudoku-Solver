@@ -27,3 +27,4 @@ clean:
 	$(MAKE) -C solver clean
 	$(MAKE) -C sudoku clean
 	$(MAKE) -C testing clean
+	
