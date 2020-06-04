@@ -32,4 +32,4 @@ test:
 # clean up after our compilation
 clean:
 	rm -rf *~ *.o *.dSYM
-	rm -rf $(PROG)
+	rm -rf $(PROG) core

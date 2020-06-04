@@ -24,11 +24,4 @@ fuzzytesting: fuzzytesting.c $(OBJS)
 
 clean:
 	rm -rf *~ *.o *.dSYM
-	rm -rf fuzzytesting randboard
-
-
-
-
-
-
-
+	rm -rf $(PROGS) core

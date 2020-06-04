@@ -40,6 +40,7 @@ int main(int argc, char *argv[]) {
 		    
                 }
             }
+	    
             for(int i = 0; i < 9; i++){
                 for(int j = 0; j < 9; j++){
                     if(board[i][j] != 0){
@@ -51,6 +52,8 @@ int main(int argc, char *argv[]) {
                     originalboard[i][j] = board[i][j];
                 }
             }
+
+	    
             fprintf(stdout, "solving sudoku puzzle . . .\n\n");
             boardFillSolver(board);
             printBoardSolver(board);

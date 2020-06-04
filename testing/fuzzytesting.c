@@ -50,7 +50,6 @@ int main(int argc, char* argv[]){
 		}
 		printBoardCreator(finalboard);
 	}
-
 	return 0;
 }
 
