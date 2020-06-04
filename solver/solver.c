@@ -46,7 +46,6 @@ void printBoardSolver(int board[ROW][COL]){ //print board with clearer formattin
 *   smallest number of possibilities. This increases the probability that the solver will not have to backtrack as far back.
 */
 int findMoveSolver(int board[ROW][COL], int *row, int *col){
-    int listofoptions[N+1] = {0};
     int listofnums[N+1] = {0};
     int k;
     int count = 0;
@@ -62,7 +61,6 @@ int findMoveSolver(int board[ROW][COL], int *row, int *col){
                 checkMove(board, *row, *col, listofnums);
                 for(k = 0; k <= 9; k++){ //generate list of options
                     if(listofnums[k] != 0){
-                        listofoptions[count] = listofnums[k];
                         count++;
                     }
                 }
