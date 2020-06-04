@@ -24,7 +24,7 @@ int findMoveCreator(int board[ROW][COL], int *row, int *col);
 
 /* **************************************** */
 
-void printBoardCreator(int board[ROW][COL]){
+void printBoardCreator(int board[ROW][COL]){ //print board in correct format
     int i,j;
     for (i = 0; i < 9; i++){
         for(j = 0; j < 9; j++){
@@ -35,7 +35,7 @@ void printBoardCreator(int board[ROW][COL]){
     fprintf(stdout, "\n");
 }
 
-int findMoveCreator(int board[ROW][COL], int *row, int *col){
+int findMoveCreator(int board[ROW][COL], int *row, int *col){ //find the next missing number iterating row by row
     for((*row) = 0; (*row) < 9; (*row)++){
         for((*col) = 0; (*col) < 9; (*col)++){
             if(board[*row][*col] == 0){
@@ -57,7 +57,7 @@ int boardFillCreator(int board[ROW][COL]){
     int randomizedindexes[N+1] = {0};
     int row, col;
 
-    if(findMoveCreator(board, &row, &col) == 0){
+    if(findMoveCreator(board, &row, &col) == 0){ //if there are no more moves return 1
         return 1;
     }
 
@@ -65,16 +65,16 @@ int boardFillCreator(int board[ROW][COL]){
         listofoptions[k] = 0;
     }
 
-    checkMove(board, row, col, listofnums);
+    checkMove(board, row, col, listofnums); //return list of possibilites at that location
 
-    for(k = 0; k <= 9; k++){
+    for(k = 0; k <= 9; k++){ //extract all non-zeros from list into new array
         if(listofnums[k] != 0){
             listofoptions[count] = listofnums[k];
             count++;
         }
     }
     srand(time(NULL));
-    for(i = 0; i < count; i++){
+    for(i = 0; i < count; i++){ //generate a random index position for each of the possibilites to create a random order
         randomnum = rand() % count;  
         srand(rand()+(row*9)+col); 
         while(randomizedindexes[randomnum] != 0){
@@ -84,19 +84,19 @@ int boardFillCreator(int board[ROW][COL]){
         randomizedlist[i] = listofoptions[randomnum];
     }
 
-    for(i = 0; i < count; i++){
+    for(i = 0; i < count; i++){ //for each number in randomized list, check that it is safe and insert it into board
         if(isSafe(board, row, col, randomizedlist[i])){
             board[row][col] = randomizedlist[i];
-            if(boardFillCreator(board) == 1){
+            if(boardFillCreator(board) == 1){ //call function recursively
                 return 1;
             }
         }
     }
-    board[row][col] = 0;
+    board[row][col] = 0; //if failed, set that location to zero and backtrack
     return 0;
 }
 
-int boardCheckCreator(int board[ROW][COL], int *numofpuzzles){
+int boardCheckCreator(int board[ROW][COL], int *numofpuzzles){ //similar to boardFillCreator except checking for number of solutions to puzzle
     int i;
     int k;
     int count = 0;
@@ -107,9 +107,9 @@ int boardCheckCreator(int board[ROW][COL], int *numofpuzzles){
     int randomizedindexes[N+1] = {0};
     int row, col;
 
-    if(findMoveCreator(board, &row, &col) == 0){
-        (*numofpuzzles)++;
-        return 0;
+    if(findMoveCreator(board, &row, &col) == 0){ //if end is reached
+        (*numofpuzzles)++; //increment number of solutions
+        return 0; //return 0 like a failure to keep searching through all possibilities
     }
 
     for(k = 0; k <= 9; k++){
