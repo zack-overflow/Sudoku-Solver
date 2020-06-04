@@ -17,6 +17,7 @@ all:
 	$(MAKE) -C creator
 	$(MAKE) -C solver
 	$(MAKE) -C sudoku
+	$(MAKE) -C testing
 
 ############## clean up after compilation ##########
 
@@ -25,3 +26,4 @@ clean:
 	$(MAKE) -C creator clean
 	$(MAKE) -C solver clean
 	$(MAKE) -C sudoku clean
+	$(MAKE) -C testing clean
