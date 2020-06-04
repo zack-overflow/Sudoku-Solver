@@ -188,12 +188,13 @@ int main() {
             fscanf(fp, "%d", &multSolutionBoard[i][j]);
         }
     }
+    fclose(fp);
 
     boardCheckCreator(singleSolutionBoard, &singlenumofpuzzles);
     boardCheckCreator(multSolutionBoard, &multnumofpuzzles);
 
-    printf("Number of solutions for single solution board: %d\n" singlenumofpuzzles);
-    printf("Number of solutions for multi solution board: %d\n" multnumofpuzzles);
+    printf("Number of solutions for single solution board: %d\n", singlenumofpuzzles);
+    printf("Number of solutions for multi solution board: %d\n", multnumofpuzzles);
 
     printf("Testing generate missing\n");
     nummissing = generateMissing(singleSolutionBoard, finalboard);
