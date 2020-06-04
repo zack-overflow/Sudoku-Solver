@@ -74,10 +74,35 @@
 #### printBoardCreator
 * Loops over each element of the board
 * Prints out the value of each element
+
+### Solver
+#### main
+* Checks arguments to see if they match the format
+        i. Returns if error
+* Checks argument to see if it is `solve`
+* Loops over 81 integers in `stdin` and reads them into a new board
+* Calls `boardFillSolver` and passes it the board that was read in
+
+#### boardFillSolver
+* `boardFillSolver` is largely the same as `boardFillCreator`; the only difference is that it recursively calls itself instead of `boardFillCreator
+* Refer to pseudocode for `creator` for more details
+
+#### Main
+* Calls `printBoardSolver` on board
+
+#### printBoardSolver
+* Loops over each element of the board
+* Prints out the value of each element
 * Between the 3rd and 6th rows, prints a row of `--` to separate into blocks vertically
 * Between the 3rd and 6th columns, prints a `|` to separate the blocks horizontally
 
-### Solver
+#### Main
+* Loops over every row and column of the input 9 x 9 board
+* If an element on the input 9 x 9 board is not zero
+* Compare the element at that index of both the input board and solved board
+* If they are not the same, set an `errorflag`
+* If any element in the input 9 x 9 board is not the same as it was originally, print an error message
+
 
 ### Interface, Prototypes and Parameters
 * User interfaces with function through command line, which takes one argument

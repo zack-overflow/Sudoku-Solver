@@ -24,9 +24,9 @@ Argument is not a valid choice
 ```
 
 ### Bad Input for Board
-Groups of 81 random numbers are generated to test `solver`'s response to incorrect/ unsolvable sudoku boards
+50 groups of 81 random numbers are generated to test `solver`'s response to incorrect/ unsolvable sudoku boards and hit possible edge cases
 ```
-./sudoku solve < ../sudoku/./badboard 50 8
+./sudoku solve < ../sudoku/./randboard 50 8
 ```
 
 
@@ -47,25 +47,8 @@ Unit testing is performed for each helper function through macros.
 ### Fuzzytesting
 Large numbers of boards are generated and fed to `solver` to perform fuzzytesting
 ```
-./sudoku solve < ../sudoku/./fuzzytesting 50 8
+../sudoku/sudoku create | ../sudoku/sudoku solve
 ```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
