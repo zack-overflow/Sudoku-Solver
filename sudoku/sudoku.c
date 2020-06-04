@@ -46,7 +46,6 @@ int main(int argc, char *argv[]) {
                     if(board[i][j] != 0){
                         temp = board[i][j];
                         board[i][j] = 0;
-                        fprintf(stdout, "position: %d %d\n", i, j);
                         if(isSafe(board, i, j, temp) == 0){
                             fprintf(stderr, "Error: board inputted is invalid\n");
                             return 0;
