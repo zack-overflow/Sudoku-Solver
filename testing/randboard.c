@@ -1,5 +1,7 @@
 /* Sudoku Project
  *
+ * Generate bad boards
+ *
  * Team Git That Money
  *
  * CS 50 Spring 2020
@@ -46,12 +48,10 @@ int main(int argc, char* argv[]){
 
 			printf("%d ", generatedRand);
 		}
-
+		// End of each board
 		printf("\n");
 		count = count + 1;
 	}
-
-
 	return 0;
 }
 

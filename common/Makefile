@@ -13,15 +13,13 @@ CFLAGS = -Wall -pedantic -std=gnu11 -ggdb
 CC = gcc
 MAKE = make
 
-.PHONY: clean test# all
+
+.PHONY: clean test
 
 common.o: common.h
 
 test: 
 	bash -v testing.sh
-
-fuzzytesting: fuzzytesting.c
-	$(CC) $(CFLAGS) $^ -o $@
 
 # clean up after our compilation
 clean:

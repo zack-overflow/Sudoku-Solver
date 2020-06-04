@@ -1,6 +1,6 @@
 # object files, and the target library
 
-PROG = sudoku
+PROG = sudoku 
 OBJS = sudoku.o ../creator/creator.o ../solver/solver.o
 
 # add -DNOSLEEP to disable the automatic sleep after web-page fetches
@@ -17,9 +17,8 @@ PATHCREATOR = ../creator
 PATHSOLVER = ../solver
 
 
-$(PROG): $(OBJS)
+sudoku: $(OBJS)
 	$(CC) $(CFLAGS) $(PATHCOMMON)/common.o $^ -o $@
-
 
 # Dependencies: object files depend on header files
 sudoku.o: sudoku.c
@@ -28,6 +27,7 @@ sudoku.o: sudoku.c
 
 test:
 	bash -v testing.sh
+
 
 # clean up after our compilation
 clean:

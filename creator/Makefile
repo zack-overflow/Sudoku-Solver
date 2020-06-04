@@ -1,22 +1,22 @@
-# add -DNOSLEEP to disable the automatic sleep after web-page fetches
-#               (students, please do not use -DNOSLEEP!)
-# add -DMEMTEST for memory tracking report in indexer
-# (and run `make clean; make` whenever you change this)
-FLAGS = # -DMEMTEST  # -DNOSLEEP
-
+PROG = creatortest
 PATHCOMMON = ../common
 CFLAGS = -Wall -pedantic -std=c11 -ggdb -I$(PATHCOMMON)
 CC = gcc
 MAKE = make
 UNITTEST = -DMYTEST
 
+
 # Dependencies: object files depend on header files
-creator.o: creator.h $(PATHCOMMON)/common.o 
+creator.o: creator.h $(PATHCOMMON)/common.o
+
+$(PROG): $(PATHCOMMON)/common.o creator.c
+	$(CC) $(CFLAGS) $(UNITTEST) $^ -o $@
 
 .PHONY: clean test
 
-test: 
-	bash -v testing.sh
+test: $(PROG)
+	./$(PROG)
+	
 
 # clean up after our compilation
 clean:

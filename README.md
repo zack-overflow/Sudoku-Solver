@@ -53,16 +53,20 @@ Sudoku will check:
 * Each of the above commands also works within the individual directories for all three components
 * Note: you will get a warning when compiling creator and solver since they do not have a `main` function. They are written in separate files purely for organizational purposes and not intended to be run, hence why they do not have `main`.
 
-### Project Structure
+### Project Structure for Main Files
 ```
 .
 ├── README.md
 ├── Makefile
-├── .gitignore
 ├── common
-    ├── FILE A
-    ├── FILE B
-    └── FILE C
+    ├── common.c
+    ├── common.h
+    └── Makefile
+├── testing
+    ├── randboard.c
+    ├── fuzzytesting.c
+    ├── testing.sh
+    └── Makefile
 ├── sudoku
     ├── sudoku.c
     └── Makefile

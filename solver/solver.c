@@ -131,18 +131,39 @@ int boardFillSolver(int board[ROW][COL]){
 
 #ifdef MYTEST
 int main() {
+    // read in test boards
+    int singSolutionBoard[ROW][COL] = {0};
     int multSolutionBoard[ROW][COL] = {0};
-    FILE *fp;
-    fp = fopen("../creator/multSolutionTest", "r");
+    FILE *fpSing;
+    FILE *fpMult;
+    fpSing = fopen("./testBoard", "r");
+    fpMult = fopen("../creator/multSolutionTest", "r");
     for(int i = 0; i < 9; i++){
         for(int j = 0; j < 9; j++){
-            fscanf(fp, "%d", &multSolutionBoard[i][j]);
+            fscanf(fpSing, "%d", &singSolutionBoard[i][j]);
+            fscanf(fpMult, "%d", &multSolutionBoard[i][j]);
         }
     }
-    printf("Testing boardFillSolver\n");
-    boardFillSolver(multSolutionBoard);
-    printf("Printing solved board\n");
+    fclose(fpSing);
+    fclose(fpMult);
+
+    // run and output tests for board with one solution
+    printf("Printing original singSolution board:\n");
+    printBoardSolver(singSolutionBoard);
+    printf("Testing boardFillSolver for singSolution...\n");
+    boardFillSolver(singSolutionBoard);
+    printf("Printing solved singSolution board (only prints one solution):\n");
+    printBoardSolver(singSolutionBoard);
+
+    // run and output tests for board with multiple solutions
+    printf("Printing original multSolution board:\n");
     printBoardSolver(multSolutionBoard);
+    printf("Testing boardFillSolver for multSolution...\n");
+    boardFillSolver(multSolutionBoard);
+    printf("Printing solved multSolution board (only prints one solution):\n");
+    printBoardSolver(multSolutionBoard);
+
+
 
     return 0;
 }

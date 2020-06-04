@@ -38,6 +38,7 @@ int main(int argc, char *argv[]) {
             for(int i = 0; i < 9; i++){ //read in board
                 for(int j = 0; j < 9; j++){
                     scanf("%d", &board[i][j]);
+		    
                 }
             }
             for(int i = 0; i < 9; i++){ //check that board inputted is valid everywhere
