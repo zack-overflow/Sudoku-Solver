@@ -23,7 +23,7 @@ int findMoveSolver(int board[ROW][COL], int *row, int *col);
 
 /* **************************************** */
 
-void printBoardSolver(int board[ROW][COL]){
+void printBoardSolver(int board[ROW][COL]){ //print board with clearer formatting
     int i,j;
     for (i = 0; i < 9; i++){
         if((i % 3) == 0){
@@ -42,8 +42,10 @@ void printBoardSolver(int board[ROW][COL]){
     fprintf(stdout, "\n");
 }
 
+/*  Improves efficiency of finding a move by picking missing cells not in order of row by row, but rather by the cell with the
+*   smallest number of possibilities. This increases the probability that the solver will not have to backtrack as far back.
+*/
 int findMoveSolver(int board[ROW][COL], int *row, int *col){
-    int listofoptions[N+1] = {0};
     int listofnums[N+1] = {0};
     int k;
     int count = 0;
@@ -55,22 +57,21 @@ int findMoveSolver(int board[ROW][COL], int *row, int *col){
     for((*row) = 0; (*row) < 9; (*row)++){
         for((*col) = 0; (*col) < 9; (*col)++){
             if(board[*row][*col] == 0){
-                flag = 1;
+                flag = 1; //raise flag that at least one cell is missing
                 checkMove(board, *row, *col, listofnums);
-                for(k = 0; k <= 9; k++){
+                for(k = 0; k <= 9; k++){ //generate list of options
                     if(listofnums[k] != 0){
-                        listofoptions[count] = listofnums[k];
                         count++;
                     }
                 }
-                if(count < min){
+                if(count < min){ //if the number of options is less than the minimum, save that location
                     bestrow = *row;
                     bestcol = *col;
                 }
             }
         }
     }
-    *row = bestrow;
+    *row = bestrow; //set the best row and column and then return
     *col = bestcol;
     return flag;
 }

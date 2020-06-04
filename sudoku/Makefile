@@ -31,5 +31,5 @@ test:
 
 # clean up after our compilation
 clean:
-	rm -rf *~ *.o *.dSYM
-	rm -rf $(PROG) core
+	rm -rf *~ *.o *.dSYM core vgcore*
+	rm -rf $(PROG)
