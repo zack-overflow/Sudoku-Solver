@@ -44,17 +44,17 @@ echo""
 
 
 echo "Check solve with many valid inputs"
+echo "Input how many fuzzqueries to generate?"
 
-for i in {0..4} 
+read value
+#for i in {1..$value}
+while ! [ "$value" -eq "0" ]
 do
 	../sudoku/sudoku create | ../sudoku/sudoku solve
+	value=$((value-1))
+	sleep 1
 done
-echo""
-
-
-
-
-
+exit 0
 
 
 
