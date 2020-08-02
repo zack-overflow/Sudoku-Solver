@@ -1,7 +1,4 @@
-# CS50 Project - Sudoku
-## Team "git that money"
-
-[Link](https://drive.google.com/file/d/1eiTx4DHM0vqHaA_1nSRjM2gT6hD-7Pid/view?usp=sharing) to video
+# Sudoku Solver
 
 ### Sudoku
 This Sudoku is a standalone program that can either create or solve a valid sudoku puzzle. A valid sudoku puzzle is a grid of 9x9 squares divided into 9 smaller 3x3 grids. Each row, column, and smaller grid in the puzzle contains the digits 1 - 9 without overlap.
@@ -88,4 +85,6 @@ Sudoku will check:
 6 directories, 24 files
 
 ```
+
+[Link](https://drive.google.com/file/d/1eiTx4DHM0vqHaA_1nSRjM2gT6hD-7Pid/view?usp=sharing) to video
 
